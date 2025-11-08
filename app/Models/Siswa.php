@@ -12,27 +12,33 @@ class Siswa extends Model
 {
     use HasFactory;
 
+    protected $table = 'siswa';
+
     protected $fillable = [
-        'user_id',
         'nama',
         'nis',
         'kelas',
-        'no_hp',
-        'alamat',
+        'tanggal_lahir',
+        'jenis_kelamin',
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
+    
+    public function kelas(): BelongsTo
+    {
+        return $this->belongsTo(Kelas::class);
+    }
 
     public function anggotaOsis(): HasOne
     {
         return $this->hasOne(AnggotaOsis::class);
     }
-    
-    public function pesertaEkskuls(): HasMany
+
+    public function periode(): BelongsTo
     {
-        return $this->hasMany(PesertaEkskul::class);
+        return $this->belongsTo(Periode::class);
     }
 }
