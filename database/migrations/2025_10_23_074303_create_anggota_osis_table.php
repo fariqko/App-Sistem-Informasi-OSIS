@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('anggota_osis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('siswa_id')->unique()->constrained('siswa')->onDelete('cascade');
-            $table->string('jabatan');
-            $table->string('foto')->nullable();
+            $table->foreignId('siswa_id')
+                ->unique()
+                ->constrained('siswa')
+                ->onDelete('cascade');
+            $table->enum('jabatan', ['Ketua', 'Wakil Ketua', 'Sekretaris 1', 'Sekretaris  2', 'Bendahara 1', 'Bendahara  2', 'Anggota'])->default('Anggota');
             $table->date('tanggal_bergabung');
-            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
+            $table->foreignId('periode_id')->constrained('periodes')->cascadeOnDelete(); 
             $table->timestamps();
         });
     }

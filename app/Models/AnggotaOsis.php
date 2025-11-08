@@ -16,9 +16,8 @@ class AnggotaOsis extends Model
     protected $fillable = [
         'siswa_id',
         'jabatan',
-        'foto',
         'tanggal_bergabung',
-        'status',
+        'periode_id',
     ];
 
     protected $casts = [
@@ -33,5 +32,10 @@ class AnggotaOsis extends Model
     public function kandidats(): HasMany
     {
         return $this->hasMany(Kandidat::class, 'anggota_id');
+    }
+
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class);
     }
 }

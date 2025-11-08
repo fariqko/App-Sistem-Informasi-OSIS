@@ -2,36 +2,32 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Traits\DeletesFileOnModelDelete;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Kandidat extends Model
 {
-    use HasFactory;
+    use HasFactory, DeletesFileOnModelDelete;
 
     protected $fillable = [
-        'anggota_id',
-        'pemilihan_id',
+        'ketua_id',
+        'wakil_id',
         'visi',
         'misi',
         'foto',
         'jumlah_suara',
     ];
 
-    public function anggotaOsis(): BelongsTo
+    protected array $fileFields = ['foto'];
+
+    public function ketua()
     {
-        return $this->belongsTo(AnggotaOsis::class, 'anggota_id');
+        return $this->belongsTo(AnggotaOsis::class, 'ketua_id');
     }
 
-    public function pemilihan(): BelongsTo
+    public function wakil()
     {
-        return $this->belongsTo(Pemilihan::class);
-    }
-    
-    public function votes(): HasMany
-    {
-        return $this->hasMany(Vote::class);
+        return $this->belongsTo(AnggotaOsis::class, 'wakil_id');
     }
 }

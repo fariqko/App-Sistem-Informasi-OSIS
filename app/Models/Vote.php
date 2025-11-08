@@ -30,9 +30,4 @@ class Vote extends Model
     {
         return $this->belongsTo(Kandidat::class);
     }
-
-    public function pemilihan(): BelongsTo
-    {
-        return $this->belongsTo(Pemilihan::class);
-    }
 }

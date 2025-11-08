@@ -15,11 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('kandidat_id')->constrained('kandidats')->onDelete('cascade');
-            $table->foreignId('pemilihan_id')->constrained('pemilihans')->onDelete('cascade');
             $table->dateTime('waktu_vote');
             $table->timestamps();
-
-            $table->unique(['user_id', 'pemilihan_id']);
         });
     }
 
