@@ -18,8 +18,10 @@ use Filament\Forms\Components\Select;
 class KelasResource extends Resource
 {
     protected static ?string $model = Kelas::class;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationGroup = 'Manajemen Sekolah';
+    protected static ?string $navigationIcon = 'heroicon-o-building-office';
+    protected static ?int $navigationSort = 1;
+
 
     public static function form(Form $form): Form
     {

@@ -22,8 +22,14 @@ use App\Filament\Resources\KandidatResource\RelationManagers;
 class KandidatResource extends Resource
 {
     protected static ?string $model = Kandidat::class;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationGroup = 'Manajemen OSIS';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?int $navigationSort = 2;
+
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) \App\Models\Kandidat::count();
+    }
 
     public static function form(Form $form): Form
     {
@@ -37,7 +43,6 @@ class KandidatResource extends Resource
                         ->searchable()
                         ->preload()
                         ->required(),
-
                     Select::make('wakil_id')
                         ->label('Wakil Ketua')
                         ->relationship('wakil', 'id')
@@ -54,15 +59,12 @@ class KandidatResource extends Resource
                                 };
                             }
                         ]),
-
                     Textarea::make('visi')
                         ->label('Visi')
                         ->required(),
-
                     Textarea::make('misi')
                         ->label('Misi')
                         ->required(),
-
                     FileUpload::make('foto')
                         ->label('Foto Pasangan')
                         ->image()

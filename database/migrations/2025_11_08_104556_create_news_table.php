@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->id();
             $table->foreignId('admins_id')->constrained('admins')->cascadeOnDelete();
-            $table->foreignId('ekstrakurikulers_id')->constrained('ekstrakurikulers')->cascadeOnDelete();
+            $table->foreignId('news_category_id')->constrained('news_categories')->cascadeOnDelete();
             $table->string('title');
             $table->string('slug');
             $table->string('thumbnail');

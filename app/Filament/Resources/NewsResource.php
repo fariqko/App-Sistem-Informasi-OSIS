@@ -2,33 +2,45 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\NewsResource\Pages;
-use App\Filament\Resources\NewsResource\RelationManagers;
-use App\Models\News;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\News;
 use Filament\Tables;
+use Filament\Forms\Set;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Filament\Facades\Filament;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Hidden;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\NewsResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\NewsResource\RelationManagers;
 
 class NewsResource extends Resource
 {
     protected static ?string $model = News::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Konten Blog';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                Hidden::make('admins_id')
+                    ->default(fn() => Filament::auth()->user()?->id),
                 Forms\Components\TextInput::make('title')
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
                     ->required(),
-                Forms\Components\TextInput::make('slug')
+                Forms\Components\Select::make('news_category_id')
                     ->required()
-                    ->readOnly(),
+                    ->relationship('newsCategory', 'title')
+                    ->native(false),
+                Hidden::make('slug')
+                    ->required(),
                 Forms\Components\FileUpload::make('thumbnail')
+                    ->directory('thumbnail')    
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\RichEditor::make('content')
@@ -41,18 +53,15 @@ class NewsResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('admins_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('ekstrakurikulers_id')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('thumbnail')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('admins_id')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('news_category_id')
+                    ->sortable(),
+                Tables\Columns\ImageColumn::make('thumbnail'),
                 Tables\Columns\TextColumn::make('content')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')

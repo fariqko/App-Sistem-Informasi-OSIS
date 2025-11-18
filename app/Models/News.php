@@ -10,19 +10,21 @@ class News extends Model
     use HasFactory;
 
     protected $fillable = [
-        'judul',
+        'admins_id', 
+        'news_category_id',
+        'title',
         'slug',
-        'konten',
-        'foto',
+        'thumbnail',
+        'content',
     ];
 
-    public function admin()
+    public function Admin()
     {
-        return $this->belongsTo(Admin::class, 'admin_id');
+        return $this->belongsTo(Admin::class, 'admins_id');
     }
 
-    public function ekstrakurikuler()
+    public function NewsCategory()
     {
-        return $this->belongsTo(Ekstrakurikuler::class, 'ekskul_id');
+        return $this->belongsTo(NewsCategory::class, 'news_category_id');
     }
 }

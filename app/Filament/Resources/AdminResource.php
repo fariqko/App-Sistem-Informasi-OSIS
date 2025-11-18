@@ -20,8 +20,11 @@ use App\Filament\Resources\AdminResource\RelationManagers;
 class AdminResource extends Resource
 {
     protected static ?string $model = Admin::class;
+    protected static ?string $navigationGroup = 'Manajemen Pengguna';
+    protected static ?string $navigationIcon = 'heroicon-o-shield-check';
+    protected static ?int $navigationSort = 3;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     public static function form(Form $form): Form
     {
         return $form
