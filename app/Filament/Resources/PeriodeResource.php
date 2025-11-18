@@ -22,8 +22,10 @@ use App\Filament\Resources\PeriodeResource\RelationManagers;
 class PeriodeResource extends Resource
 {
     protected static ?string $model = Periode::class;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationGroup = 'Manajemen Sekolah';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
+    protected static ?int $navigationSort = 2;
+
 
     public static function form(Form $form): Form
     {

@@ -63,17 +63,15 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugin(\BezhanSalleh\FilamentShield\FilamentShieldPlugin::make())
             ->authGuard('admin')
-            ->navigationGroups([
-            NavigationGroup::make()
-                 ->label('Shop')
-                 ->icon('heroicon-o-shopping-cart'),
-            NavigationGroup::make()
-                ->label('Blog')
-                ->icon('heroicon-o-pencil'),
-            NavigationGroup::make()
-                ->label(fn (): string => __('navigation.settings'))
-                ->icon('heroicon-o-cog-6-tooth')
-                ->collapsed(),
-        ]);
+            ->NavigationGroups([
+                NavigationGroup::make()
+                    ->label('Manajemen Pengguna'),
+                NavigationGroup::make()
+                    ->label('Manajemen Sekolah'),
+                NavigationGroup::make()
+                    ->label('Manajemen OSIS'),
+                NavigationGroup::make()
+                    ->label('Konten Website'),
+            ]);
     }
 }

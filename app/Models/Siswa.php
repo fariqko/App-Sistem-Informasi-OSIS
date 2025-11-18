@@ -17,8 +17,8 @@ class Siswa extends Model
     protected $fillable = [
         'nama',
         'nis',
-        'kelas',
         'tanggal_lahir',
+        'kelas_id',
         'jenis_kelamin',
     ];
 
@@ -29,7 +29,7 @@ class Siswa extends Model
     
     public function kelas(): BelongsTo
     {
-        return $this->belongsTo(Kelas::class);
+        return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
     public function anggotaOsis(): HasOne

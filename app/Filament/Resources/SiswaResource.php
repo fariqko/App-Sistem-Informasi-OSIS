@@ -20,8 +20,9 @@ use Filament\Forms\Components\DatePicker;
 class SiswaResource extends Resource
 {
     protected static ?string $model = Siswa::class;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationGroup = 'Manajemen Pengguna';
+    protected static ?string $navigationIcon = 'heroicon-o-archive-box';
+    protected static ?int $navigationSort = 2;
 
     public static function getNavigationBadge(): ?string
     {

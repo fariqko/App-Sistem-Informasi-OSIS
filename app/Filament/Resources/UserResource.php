@@ -19,8 +19,15 @@ use App\Filament\Resources\UserResource\RelationManagers;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
-    protected static ?string $navigationIcon = 'heroicon-o-users';
-    protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationGroup = 'Manajemen Pengguna';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
+    protected static ?int $navigationSort = 1;
+
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) \App\Models\User::count();
+    }
+
 
     public static function form(Form $form): Form
     {

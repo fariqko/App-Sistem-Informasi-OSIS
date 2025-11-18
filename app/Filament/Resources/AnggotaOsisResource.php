@@ -19,8 +19,15 @@ use App\Filament\Resources\AnggotaOsisResource\Pages;
 class AnggotaOsisResource extends Resource
 {
     protected static ?string $model = AnggotaOsis::class;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationGroup = 'Manajemen OSIS';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?int $navigationSort = 1;
+
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) \App\Models\AnggotaOsis::count();
+    }
+
 
     public static function getLabel(): string
     {
