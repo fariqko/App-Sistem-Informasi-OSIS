@@ -17,6 +17,7 @@ class Kandidat extends Model
         'misi',
         'foto',
         'jumlah_suara',
+        'periode_id',
     ];
 
     protected array $fileFields = ['foto'];
@@ -29,5 +30,10 @@ class Kandidat extends Model
     public function wakil()
     {
         return $this->belongsTo(AnggotaOsis::class, 'wakil_id');
+    }
+
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class, 'periode_id');
     }
 }

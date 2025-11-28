@@ -37,13 +37,13 @@ class PeriodeResource extends Resource
                     ->native(false),
                 DatePicker::make('selesai')
                     ->native(false),
-                Toggle::make('aktif')
+                Toggle::make('status')
                     ->label('Periode Aktif')
                     ->afterStateUpdated(
                         function ($record, $state) {
                             if ($state === true) {
                                 Periode::where('id', '!=', $record->id)
-                                    ->update(['aktif' => false]);
+                                    ->update(['status' => true]);
                             }
                         }
                     ),
@@ -63,7 +63,7 @@ class PeriodeResource extends Resource
                 TextColumn::make('selesai')
                     ->date('d-m-Y')
                     ->searchable(),
-                ToggleColumn::make('aktif')
+                ToggleColumn::make('status')
             ])
             ->filters([
                 //

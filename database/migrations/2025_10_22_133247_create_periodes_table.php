@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama_periode');
             $table->date('mulai')->nullable();
             $table->date('selesai')->nullable();
-            $table->boolean('aktif')->default(false);
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

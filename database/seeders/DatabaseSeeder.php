@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder
             KelasSeeder::class,
             RoleSeeder::class,
             SiswaSeeder::class,
+            PeriodeSeeder::class,
+            AnggotaOsisSeeder::class,
+            // KandidatSeeder::class,
         ]);
     }
 }

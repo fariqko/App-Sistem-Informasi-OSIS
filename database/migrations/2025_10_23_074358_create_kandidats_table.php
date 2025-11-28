@@ -19,6 +19,10 @@ return new class extends Migration {
             $table->text('misi');
             $table->string('foto')->nullable();
             $table->integer('jumlah_suara')->default(0);
+            $table->foreignId('periode_id')
+                  ->constrained('periodes')
+                  ->onDelete('cascade');
+
             $table->timestamps();
 
             // Ketua dan Wakil tidak boleh muncul di kandidat lain

@@ -86,8 +86,8 @@ class AnggotaOsisResource extends Resource
                 Select::make('periode_id')
                     ->relationship('periode', 'nama_periode')
                     ->required()
-                ->default(fn() => Periode::where('aktif', true)->value('id'))
-                ->native(false),
+                    ->default(fn() => Periode::where('status', true)->value('id'))
+                    ->native(false),
             ]);
     }
 
@@ -118,7 +118,7 @@ class AnggotaOsisResource extends Resource
                 SelectFilter::make('periode_id')
                     ->label('Periode')
                     ->relationship('periode', 'nama_periode')
-                    ->default(fn() => Periode::where('aktif', true)->value('id'))
+                    ->default(fn() => Periode::where('status', true)->value('id'))
                     ->native(false)
                     ->selectablePlaceholder(false),
             ])
