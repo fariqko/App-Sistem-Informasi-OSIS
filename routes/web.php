@@ -1,10 +1,28 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\VoteController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/event', function () {
+    return view('pages.event');
+});
+
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
+
+Route::get('/thanks', function () {
+    return view('thanks');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/vote', [VoteController::class, 'index'])->name('vote.index');
+    Route::post('/vote', [VoteController::class, 'store'])->name('vote.store');
 });
 
 Route::get('/dashboard', function () {

@@ -2,22 +2,21 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
 use Filament\Tables;
+use App\Models\Periode;
 use App\Models\Kandidat;
 use Filament\Forms\Form;
+use App\Http\Requests\StoreKandidatRequest;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\KandidatResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\KandidatResource\RelationManagers;
 
 class KandidatResource extends Resource
 {
@@ -29,6 +28,11 @@ class KandidatResource extends Resource
     public static function getNavigationBadge(): ?string
     {
         return (string) \App\Models\Kandidat::count();
+    }
+
+    public static function getCreateFormRequest(): string
+    {
+        return StoreKandidatRequest::class;
     }
 
     public static function form(Form $form): Form
@@ -49,16 +53,7 @@ class KandidatResource extends Resource
                         ->getOptionLabelFromRecordUsing(fn($record) => $record->siswa->nama ?? '-')
                         ->searchable()
                         ->preload()
-                        ->required()
-                        ->rules([
-                            function (callable $get) {
-                                return function (string $attribute, $value, \Closure $fail) use ($get) {
-                                    if ($value === $get('ketua_id')) {
-                                        $fail('Ketua dan Wakil tidak boleh sama.');
-                                    }
-                                };
-                            }
-                        ]),
+                        ->required(),
                     Textarea::make('visi')
                         ->label('Visi')
                         ->required(),
@@ -70,6 +65,11 @@ class KandidatResource extends Resource
                         ->image()
                         ->directory('kandidat')
                         ->columnSpan(2),
+                    Hidden::make('periode_id')
+                        ->label('Periode')
+                        ->default(fn() => Periode::where('status', true)->value('id')),
+
+
 
                 ])->columns(2),
 
@@ -90,6 +90,7 @@ class KandidatResource extends Resource
                     ->searchable(),
                 TextColumn::make('jumlah_suara')
                     ->numeric(),
+                TextColumn::make('periode.nama_periode'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -38,4 +38,22 @@ class AnggotaOsis extends Model
     {
         return $this->belongsTo(Periode::class);
     }
+
+    public function kandidatKetua()
+    {
+        return $this->hasOne(Kandidat::class, 'ketua_id');
+    }
+
+    // Relasi: Anggota OSIS ini pernah jadi WAKIL di kandidat mana saja
+    public function kandidatWakil()
+    {
+        return $this->hasOne(Kandidat::class, 'wakil_id');
+    }
+
+    // Bonus: cek apakah anggota ini SUDAH jadi kandidat (ketua ATAU wakil) di periode tertentu
+    public function sudahJadiKandidatDiPeriode($periodeId)
+    {
+        return $this->kandidatKetua()->where('periode_id', $periodeId)->exists()
+            || $this->kandidatWakil()->where('periode_id', $periodeId)->exists();
+    }
 }

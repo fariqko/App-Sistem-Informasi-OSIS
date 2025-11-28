@@ -16,7 +16,7 @@ class SiswaSeeder extends Seeder
      */
     public function run(): void
     {
-        Siswa::factory()->count(50)->create();
+        Siswa::factory()->count(20)->create();
 
         $this->command->info('✅ data siswa berhasil dibuat lengkap dengan user & role "Siswa"');
     }
