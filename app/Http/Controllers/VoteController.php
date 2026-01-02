@@ -7,22 +7,25 @@ use App\Models\Periode;
 use App\Models\Kandidat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class VoteController extends Controller
 {
     public function index()
     {
-        // Ambil periode aktif
-        $periode = Periode::where('status', 1)->first();
+        // Cache periode aktif 5 menit (biar nggak query DB tiap akses)
+        $periode = Cache::remember('periode_aktif', 300, function () {
+            return Periode::where('status', 1)->first();
+        });
 
         if (!$periode) {
             return view('vote', [
                 'periode' => null,
-                'kandidats' => []
+                'kandidats' => collect()
             ]);
         }
 
-        // Ambil kandidat berdasarkan periode aktif
         $kandidats = Kandidat::where('periode_id', $periode->id)
             ->with(['ketua.siswa', 'wakil.siswa'])
             ->get();
@@ -30,9 +33,6 @@ class VoteController extends Controller
         return view('vote', compact('periode', 'kandidats'));
     }
 
-    /**
-     * Proses simpan vote
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -41,43 +41,47 @@ class VoteController extends Controller
 
         $user = Auth::user();
 
-        // Ambil periode aktif
-        $periode = Periode::where('status', 1)->first();
+        // Ambil periode aktif sekali saja + cache
+        $periode = Cache::remember('periode_aktif', 300, function () {
+            return Periode::where('status', 1)->first();
+        });
 
         if (!$periode) {
             return back()->with('error', 'Voting belum dibuka.');
         }
 
-        // Cek apakah user sudah voting di periode ini
+        // Cek apakah user sudah vote di periode ini
         $sudahVote = Vote::where('user_id', $user->id)
             ->where('periode_id', $periode->id)
             ->exists();
 
         if ($sudahVote) {
-            return back()->with('error', 'Anda sudah melakukan voting pada periode ini.');
+            return back()->with('error', 'Kamu sudah voting di periode ini!');
         }
 
+        // Ambil kandidat + pastikan milik periode aktif (PAKAI RELASI!)
         $kandidat = Kandidat::where('id', $request->kandidat_id)
             ->where('periode_id', $periode->id)
             ->first();
 
         if (!$kandidat) {
-            return back()->with('error', 'Kandidat tidak valid untuk periode ini.');
+            return back()->with('error', 'Kandidat tidak valid.');
         }
 
-        // Simpan vote
-        Vote::create([
-            'user_id' => $user->id,
-            'kandidat_id' => $kandidat->id,
-            'periode_id' => $periode->id,
-            'waktu_vote' => now(),
-        ]);
+        // Simpan vote dalam transaksi (biar aman kalau error)
+        DB::transaction(function () use ($user, $kandidat, $periode) {
+            Vote::create([
+                'user_id' => $user->id,
+                'kandidat_id' => $kandidat->id,
+                'periode_id' => $periode->id,
+                'waktu_vote' => now(),
+            ]);
 
-        // Update jumlah suara kandidat
-        $kandidat->increment('jumlah_suara');
+            $kandidat->increment('jumlah_suara');
+        });
 
         Auth::logout();
 
-        return redirect('/thanks')->with('success', 'Voting berhasil!');
+        return redirect('/thanks')->with('success', 'Terima kasih! Suara kamu telah direkam.');
     }
 }

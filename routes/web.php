@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VoteController;
+use App\Http\Controllers\PemiluController;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
@@ -12,9 +13,12 @@ Route::get('/event', function () {
     return view('pages.event');
 });
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
+Route::get('/ekskul', function () {
+    return view('pages.ekskul');
+});
+
+Route::get('/pemilu', [PemiluController::class, 'create'])
+    ->name('pemilu');
 
 Route::get('/thanks', function () {
     return view('thanks');

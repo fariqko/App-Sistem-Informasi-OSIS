@@ -15,9 +15,10 @@ class AnggotaOsis extends Model
 
     protected $fillable = [
         'siswa_id',
-        'jabatan',
-        'tanggal_bergabung',
         'periode_id',
+        'jabatan',
+        'bagian',
+        'tanggal_bergabung',
     ];
 
     protected $casts = [
