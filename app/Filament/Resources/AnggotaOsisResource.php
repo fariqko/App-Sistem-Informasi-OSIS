@@ -12,9 +12,11 @@ use Illuminate\Validation\Rule;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\SelectFilter;
 use App\Filament\Resources\AnggotaOsisResource\Pages;
+use Filament\Forms\Components\Section;
 
 class AnggotaOsisResource extends Resource
 {
@@ -43,51 +45,65 @@ class AnggotaOsisResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('siswa_id')
-                    ->relationship('siswa', 'nama')
-                    ->searchable()
-                    ->placeholder('Nama Siswa')
-                    ->required(),
-                Select::make('jabatan')
-                    ->label('Jabatan')
-                    ->options([
-                        'Ketua' => 'Ketua',
-                        'Wakil Ketua' => 'Wakil Ketua',
-                        'Sekretaris 1' => 'Sekretaris 1',
-                        'Sekretaris 2' => 'Sekretaris 2',
-                        'Bendahara 1' => 'Bendahara 1',
-                        'Bendahara 2' => 'Bendahara 2',
-                        'Anggota' => 'Anggota',
-                    ])
-                    ->default('Anggota')
-                    ->rules(function (callable $get) {
-                        $jabatan = $get('jabatan');
-
-                        if (in_array($jabatan, [
-                            'Ketua',
-                            'Wakil Ketua',
-                            'Sekretaris 1',
-                            'Sekretaris 2',
-                            'Bendahara 1',
-                            'Bendahara 2'
-                        ])) {
-                            return [
-                                Rule::unique('anggota_osis', 'jabatan')
-                                    ->where(fn($query) => $query->where('jabatan', $jabatan))
-                            ];
-                        }
-                        return [];
-                    })
-                    ->native(false)
-                    ->required(),
-                DatePicker::make('tanggal_bergabung')
-                    ->required()
-                    ->native(false),
-                Select::make('periode_id')
-                    ->relationship('periode', 'nama_periode')
-                    ->required()
-                    ->default(fn() => Periode::where('status', true)->value('id'))
-                    ->native(false),
+                Section::make('Data Anggota OSIS')
+                    ->schema([
+                        Select::make('periode_id')
+                            ->relationship('periode', 'nama_periode')
+                            ->required()
+                            ->preload()
+                            ->reactive()
+                            ->default(fn() => Periode::where('status', true)->value('id'))
+                            ->native(false),
+                        Select::make('siswa_id')
+                            ->relationship('siswa', 'nama', fn($query) => $query->with('kelas'))
+                            ->getOptionLabelFromRecordUsing(fn($record) => "{$record->nama} - {$record->kelas?->kode_kelas}")
+                            ->searchable(['nama', 'nis'])
+                            ->preload()
+                            ->required()
+                            ->reactive(),
+                        Select::make('bagian')
+                            ->options([
+                                'BPH' => 'BPH (Badan Pengurus Harian)',
+                                'Sekbid 1' => 'Sekbid 1 - Keagamaan & Ketuhanan',
+                                'Sekbid 2' => 'Sekbid 2 - Berkehidupan Berbangsa & Bernegara',
+                                'Sekbid 3' => 'Sekbid 3 - Pendidikan Pendahuluan & Bela Negara',
+                                'Sekbid 4' => 'Sekbid 4 - Kedisiplinan & Budi Pekerti Luhur',
+                                'Sekbid 5' => 'Sekbid 5 - Kepemimpinan Berorganisasi Pendidikan & Politik ',
+                                'Sekbid 6' => 'Sekbid 6 - Kewirausahaan & Keterampilan',
+                                'Sekbid 7' => 'Sekbid 7 - Kebugaran Jasmani & Daya Kreasi Seni',
+                                'Sekbid 8' => 'Sekbid 8 - Presepsi Apresiasi & Daya Kreasi Seni',
+                            ])
+                            ->native(false)
+                            ->required()
+                            ->reactive(),
+                        Select::make('jabatan')
+                            ->required()
+                            ->options(fn(callable $get) => match ($get('bagian')) {
+                                'BPH' => [
+                                    'Ketua Umum' => 'Ketua Umum',
+                                    'Wakil Ketua' => 'Wakil Ketua',
+                                    'Sekretaris 1' => 'Sekretaris 1',
+                                    'Sekretaris 2' => 'Sekretaris 2',
+                                    'Bendahara 1' => 'Bendahara 1',
+                                    'Bendahara 2' => 'Bendahara 2',
+                                ],
+                                default => $get('bagian') ? [
+                                    "Ketua" . $get('bagian')   => "Ketua " . $get('bagian'),
+                                    "Anggota" . $get('bagian') => "Anggota " . $get('bagian'),
+                                ] : []
+                            })
+                            ->disabled(fn(callable $get) => ! $get('bagian'))
+                            ->native(false)
+                            ->rule('unique:anggota_osis,jabatan')
+                            ->validationMessages([
+                                'unique' => 'Jabatan ini sudah ada.'
+                            ])
+                            ->reactive(),
+                        DatePicker::make('tanggal_bergabung')
+                            ->required()
+                            ->default(now())
+                            ->native(false),
+                    ])->columns(2),
             ]);
     }
 

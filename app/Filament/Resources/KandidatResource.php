@@ -6,7 +6,6 @@ use Filament\Tables;
 use App\Models\Periode;
 use App\Models\Kandidat;
 use Filament\Forms\Form;
-use App\Http\Requests\StoreKandidatRequest;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Hidden;
@@ -16,6 +15,8 @@ use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Filters\SelectFilter;
+use App\Http\Requests\StoreKandidatRequest;
 use App\Filament\Resources\KandidatResource\Pages;
 
 class KandidatResource extends Resource
@@ -101,7 +102,11 @@ class KandidatResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('periode_id')
+                    ->label('Periode')
+                    ->relationship('periode', 'nama_periode')
+                    ->native(false)
+                    ->selectablePlaceholder(false),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

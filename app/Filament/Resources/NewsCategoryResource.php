@@ -18,7 +18,7 @@ use App\Filament\Resources\NewsCategoryResource\RelationManagers;
 class NewsCategoryResource extends Resource
 {
     protected static ?string $model = NewsCategory::class;
-    protected static ?string $navigationGroup = 'Konten Blog';
+    protected static ?string $navigationGroup = 'Konten Berita';
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
     public static function form(Form $form): Form

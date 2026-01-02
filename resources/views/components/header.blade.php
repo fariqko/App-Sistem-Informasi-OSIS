@@ -1,57 +1,109 @@
-<header class="bg-white shadow-md sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+<nav class="bg-white sticky w-full z-20 top-0 start-0 border-b border-gray-200">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <!-- Logo & Nama Sekolah -->
-        <div class="flex items-center space-x-3">
-            <img src="assets/logo_pustek-removebg-preview.png" alt="Logo Pustek" class="w-16 h-16 md:w-20">
+        <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="{{ asset('assets/logo_pustek-removebg-preview.png')}}" class="w-16 h-16 md:w-20" alt="Logo Sekolah" />
             <div>
                 <span class="text-xl font-bold text-blue-600">Pustek Inside</span>
                 <p class="text-xs text-gray-500">SMK Pustek Serpong</p>
             </div>
-        </div>
+        </a>
 
-        <!-- Hamburger Button (hanya muncul di mobile) -->
-        <label for="menu-toggle" class="md:hidden cursor-pointer">
-            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <!-- Tombol hamburger (mobile) -->
+        <button data-collapse-toggle="navbar-dropdown" type="button"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-blue-600 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            aria-controls="navbar-dropdown" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
             </svg>
-        </label>
-        <input type="checkbox" id="menu-toggle" class="hidden peer">
+        </button>
 
-        <!-- Navbar Desktop + Mobile -->
-        <nav class="hidden peer-checked:flex md:flex flex-col md:flex-row absolute md:relative top-full left-0 right-0 bg-white md:bg-transparent shadow-lg md:shadow-none flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-8 font-semibold text-sm tracking-wide uppercase pt-4 md:pt-0 pb-4 md:pb-0 px-6 md:px-0">
+        <!-- Menu -->
+        <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
+            <ul class="flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
 
-            <a href="/index.html" class="text-blue-600 border-b-2 border-blue-600 pb-1 md:pb-1">Beranda</a>
+                <li><a href="/" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0" aria-current="page">Home</a></li>
+                <!-- Dropdown Bidang -->
+                <li class="group">
+                    <!-- Tombol "Bidang" -->
+                    <button
+                        type="button"
+                        id="bidangButton"
+                        data-dropdown-toggle="dropdownBidangDesktop"
+                        data-collapse-toggle="collapseBidangMobile"
+                        class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 font-medium">
+                        Bidang
+                        <svg class="w-2.5 h-2.5 ms-2.5 transition-transform duration-200 group-hover:rotate-180"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
 
-            <!-- Dropdown OSIS -->
-            <div class="relative group">
-                <button class="text-gray-600 hover:text-blue-600 flex items-center">
-                    OSIS
-                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-
-                <!-- Dropdown Menu -->
-                <div class="absolute left-0 top-full mt-2 w-56 origin-top-left">
-                    <div class="bg-white rounded-md shadow-xl ring-1 ring-black ring-opacity-5 overflow-hidden scale-95 opacity-0 invisible group-hover:scale-100 group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-out">
-                        <div class="py-1">
-                            <a href="#tentang" class="block px-5 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
-                                Visi Misi
-                            </a>
-                            <a href="#proker" class="block px-5 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
-                                Program Kerja
-                            </a>
-                            <a href="kegiatan/pemilu.html" class="block px-5 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
-                                Pemilu OSIS
-                            </a>
-                        </div>
+                    <!-- Mobile -->
+                    <div id="collapseBidangMobile" class="hidden md:hidden">
+                        <ul class="py-2 space-y-1 text-sm text-gray-700 border-t border-gray-200 mt-1">
+                            <li><a href="/bph1" class="block px-8 py-2 hover:bg-gray-100">BPH</a></li>
+                            <li><a href="/sekbid1" class="block px-8 py-2 hover:bg-gray-100">Sekbid 1</a></li>
+                            <li><a href="/sekbid2" class="block px-8 py-2 hover:bg-gray-100">Sekbid 2</a></li>
+                            <li><a href="/sekbid3" class="block px-8 py-2 hover:bg-gray-100">Sekbid 3</a></li>
+                            <li><a href="/sekbid4" class="block px-8 py-2 hover:bg-gray-100">Sekbid 4</a></li>
+                            <li><a href="/sekbid5" class="block px-8 py-2 hover:bg-gray-100">Sekbid 5</a></li>
+                            <li><a href="/sekbid6" class="block px-8 py-2 hover:bg-gray-100">Sekbid 6</a></li>
+                            <li><a href="/sekbid7" class="block px-8 py-2 hover:bg-gray-100">Sekbid 7</a></li>
+                            <li><a href="/sekbid8" class="block px-8 py-2 hover:bg-gray-100">Sekbid 8</a></li>
+                        </ul>
                     </div>
-                </div>
-            </div>
 
-            <a href="kegiatan/kegiatan.html" class="text-gray-600 hover:text-blue-600">Events</a>
-            <a href="#struktural" class="text-gray-600 hover:text-blue-600">Struktur Kepengurusan</a>
-            <a href="ekskul/ekskul.html" class="text-gray-600 hover:text-blue-600">Ekstrakurikuler</a>
-        </nav>
+                    <!-- Desktop -->
+                    <div id="dropdownBidangDesktop" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 max-md:hidden md:absolute md:top-full md:left-0 md:mt-1">
+                        <ul class="py-2 text-sm text-gray-700">
+                            <li><a href="/bph1" class="block px-8 py-2 hover:bg-gray-100">BPH</a></li>
+                            <li><a href="/sekbid1" class="block px-8 py-2 hover:bg-gray-100">Sekbid 1</a></li>
+                            <li><a href="/sekbid2" class="block px-8 py-2 hover:bg-gray-100">Sekbid 2</a></li>
+                            <li><a href="/sekbid3" class="block px-8 py-2 hover:bg-gray-100">Sekbid 3</a></li>
+                            <li><a href="/sekbid4" class="block px-8 py-2 hover:bg-gray-100">Sekbid 4</a></li>
+                            <li><a href="/sekbid5" class="block px-8 py-2 hover:bg-gray-100">Sekbid 5</a></li>
+                            <li><a href="/sekbid6" class="block px-8 py-2 hover:bg-gray-100">Sekbid 6</a></li>
+                            <li><a href="/sekbid7" class="block px-8 py-2 hover:bg-gray-100">Sekbid 7</a></li>
+                            <li><a href="/sekbid8" class="block px-8 py-2 hover:bg-gray-100">Sekbid 8</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="/event" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Event</a></li>
+                <!-- Dropdown More -->
+                <li class="group">
+                    <!-- Tombol "Lainnya" -->
+                    <button
+                        type="button"
+                        id="lainnyaButton"
+                        data-dropdown-toggle="dropdownLainnyaDesktop"
+                        data-collapse-toggle="collapseLainnyaMobile"
+                        class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 font-medium">
+                        Lainnya
+                        <svg class="w-2.5 h-2.5 ms-2.5 transition-transform duration-200 group-hover:rotate-180"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
+
+                    <!-- Mobile -->
+                    <div id="collapseLainnyaMobile" class="hidden md:hidden">
+                        <ul class="py-2 space-y-1 text-sm text-gray-700 border-t border-gray-200 mt-1">
+                            <li><a href="/ekskul" class="block px-8 py-2 hover:bg-gray-100">Ekstrakurikuler</a></li>
+                            <li><a href="/pemilu" class="block px-8 py-2 hover:bg-gray-100">Pemilu</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Desktop -->
+                    <div id="dropdownLainnyaDesktop" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 max-md:hidden md:absolute md:top-full md:left-0 md:mt-1">
+                        <ul class="py-2 text-sm text-gray-700">
+                            <li><a href="/ekskul" class="block px-4 py-2 hover:bg-gray-100">Ekstrakurikuler</a></li>
+                            <li><a href="/pemilu" class="block px-4 py-2 hover:bg-gray-100">Pemilu</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
-</header>
+</nav>

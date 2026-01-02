@@ -20,7 +20,7 @@ use App\Filament\Resources\NewsResource\RelationManagers;
 class NewsResource extends Resource
 {
     protected static ?string $model = News::class;
-    protected static ?string $navigationGroup = 'Konten Blog';
+    protected static ?string $navigationGroup = 'Konten Berita';
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
     public static function form(Form $form): Form

@@ -62,16 +62,6 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->plugin(\BezhanSalleh\FilamentShield\FilamentShieldPlugin::make())
-            ->authGuard('admin')
-            ->NavigationGroups([
-                NavigationGroup::make()
-                    ->label('Manajemen Pengguna'),
-                NavigationGroup::make()
-                    ->label('Manajemen Sekolah'),
-                NavigationGroup::make()
-                    ->label('Manajemen OSIS'),
-                NavigationGroup::make()
-                    ->label('Konten Website'),
-            ]);
+            ->authGuard('admin');
     }
 }

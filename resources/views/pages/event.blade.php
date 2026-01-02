@@ -270,59 +270,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Kalender Kegiatan -->
-                <div class="bg-white rounded-xl shadow-sm p-6 animate-fade-in delay-400">
-                    <h3 class="text-lg font-bold text-gray-900 mb-4">Kalender Kegiatan</h3>
-                    <div class="bg-blue-50 rounded-lg p-4">
-                        <div class="text-center mb-4">
-                            <div class="text-blue-600 font-bold text-lg">November 2023</div>
-                        </div>
-                        <div class="grid grid-cols-7 gap-1 text-center text-xs font-medium text-gray-500 mb-2">
-                            <div>M</div>
-                            <div>S</div>
-                            <div>S</div>
-                            <div>R</div>
-                            <div>K</div>
-                            <div>J</div>
-                            <div>S</div>
-                        </div>
-                        <div class="grid grid-cols-7 gap-1">
-                            <!-- Calendar days would go here -->
-                            <div class="text-center py-1 text-gray-400">30</div>
-                            <div class="text-center py-1 text-gray-400">31</div>
-                            <div class="text-center py-1">1</div>
-                            <div class="text-center py-1">2</div>
-                            <div class="text-center py-1">3</div>
-                            <div class="text-center py-1 bg-blue-100 text-blue-600 rounded-full font-bold">4</div>
-                            <div class="text-center py-1">5</div>
-                            <!-- More days... -->
-                        </div>
-                    </div>
-                    <div class="mt-4 space-y-3">
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 w-2 h-2 bg-blue-500 rounded-full mt-1.5 mr-3"></div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-900">Rapat OSIS</p>
-                                <p class="text-xs text-gray-500">4 Nov, 10:00 - Aula Sekolah</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 w-2 h-2 bg-green-500 rounded-full mt-1.5 mr-3"></div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-900">Latihan Basket</p>
-                                <p class="text-xs text-gray-500">5 Nov, 15:00 - Lapangan Basket</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 w-2 h-2 bg-purple-500 rounded-full mt-1.5 mr-3"></div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-900">Seminar Karir</p>
-                                <p class="text-xs text-gray-500">7 Nov, 09:00 - Ruang Multimedia</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </main>
