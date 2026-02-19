@@ -280,7 +280,7 @@
 </section>
 
 <!-- Program Kerja Section -->
-<section id="proker" class="py-16 bg-gray-50">
+<section id="proker" class="py-16 bg-white">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12">
             <h2 class="text-3xl font-bold text-gray-800">Program Kerja OSIS</h2>
@@ -296,8 +296,7 @@
             <!-- Slides Container -->
             <div class="flex transition-transform duration-500" id="slider-track">
                 <!-- Slide 1 -->
-                <div
-                    class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full flex-shrink-0 px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full flex-shrink-0 px-4">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden p-6">
                         <img src="assets/bidang/bidang1.jpeg" class="w-full h-40 object-cover rounded-lg mb-4" />
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Porseni</h3>
@@ -427,189 +426,5 @@
 </section>
 
 <!-- Kegiatan & Event Section -->
-<section id="courses" class="bg-white py-16">
-    <div class="max-w-7xl mx-auto px-6">
-        <!-- Header Section -->
-        <div class="mb-8">
-            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
-                Temukan Event Menarik dan Aktivitas Terbaru Setiap Hari
-            </h2>
-            <p class="text-gray-600 text-base lg:text-lg">
-                Menghadirkan Informasi Event, Program Kegiatan, dan Agenda Resmi
-                yang Disusun untuk Mendukung Pengembangan Siswa/i dan Komunitas
-                Akademik.
-            </p>
-        </div>
 
-        <!-- Tab Navigation -->
-        <div class="border-b border-gray-200 mb-8">
-            <nav class="flex space-x-8 overflow-x-auto">
-                <button
-                    class="pb-4 px-1 border-b-2 border-gray-900 font-semibold text-gray-900 whitespace-nowrap">
-                    Semua Informasi
-                </button>
-                <button
-                    class="pb-4 px-1 border-b-2 border-transparent font-medium text-gray-600 hover:text-gray-900 hover:border-gray-300 whitespace-nowrap">
-                    Ekstrakurikuler
-                </button>
-                <button
-                    class="pb-4 px-1 border-b-2 border-transparent font-medium text-gray-600 hover:text-gray-900 hover:border-gray-300 whitespace-nowrap">
-                    Lomba dan Kompetisi
-                </button>
-                <button
-                    class="pb-4 px-1 border-b-2 border-transparent font-medium text-gray-600 hover:text-gray-900 hover:border-gray-300 whitespace-nowrap">
-                    Akademik
-                </button>
-                <button
-                    class="pb-4 px-1 border-b-2 border-transparent font-medium text-gray-600 hover:text-gray-900 hover:border-gray-300 whitespace-nowrap">
-                    Kegiatan Sosial
-                </button>
-            </nav>
-        </div>
-
-        <!-- Courses Grid -->
-        <div class="relative">
-            <!-- Scroll Container -->
-            <div class="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
-                <!-- Course Card 1 -->
-                <div class="flex-none w-80 group">
-                    <a href="#" class="block">
-                        <div class="relative rounded-lg overflow-hidden mb-3">
-                            <img
-                                src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80"
-                                alt="AI Engineer Course"
-                                class="w-full h-44 object-cover group-hover:opacity-90 transition" />
-                        </div>
-                        <h3
-                            class="text-base font-bold text-gray-900 mb-1 line-clamp-2 group-hover:text-blue-600 transition">
-                            NWTC (National Winner Talent Competition)
-                        </h3>
-                        <p class="text-sm text-gray-600 mb-2">
-                            kompetisi akademik nasional berbasis teknologi digital, bisa
-                            jadi ajang prestasi untuk siswa SMK.
-                        </p>
-                    </a>
-                </div>
-
-                <!-- Course Card 2 -->
-                <div class="flex-none w-80 group">
-                    <a href="#" class="block">
-                        <div class="relative rounded-lg overflow-hidden mb-3">
-                            <img
-                                src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&q=80"
-                                alt="Salesforce Development"
-                                class="w-full h-44 object-cover group-hover:opacity-90 transition" />
-                        </div>
-                        <h3
-                            class="text-base font-bold text-gray-900 mb-1 line-clamp-2 group-hover:text-blue-600 transition">
-                            Lomba Karya Inovasi Generative AI untuk Siswa SMK
-                        </h3>
-                        <p class="text-sm text-gray-600 mb-2">
-                            Diselenggarakan oleh BPPTIK dan AWS (Amazon Web Services)
-                            untuk siswa SMK.
-                        </p>
-                    </a>
-                </div>
-
-                <!-- Course Card 3 -->
-                <div class="flex-none w-80 group">
-                    <a href="#" class="block">
-                        <div class="relative rounded-lg overflow-hidden mb-3">
-                            <img
-                                src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80"
-                                alt="AI Agents"
-                                class="w-full h-44 object-cover group-hover:opacity-90 transition" />
-                        </div>
-                        <h3
-                            class="text-base font-bold text-gray-900 mb-1 line-clamp-2 group-hover:text-blue-600 transition">
-                            World Vocational College Skills Competition (Internasional)
-                        </h3>
-                        <p class="text-sm text-gray-600 mb-2">
-                            Potensial untuk artikel “Kesempatan Internasional bagi Siswa
-                            SMK Pustek” atau “Mengenal World Vocational College Skills”
-                        </p>
-                    </a>
-                </div>
-
-                <!-- Course Card 4 -->
-                <div class="flex-none w-80 group">
-                    <a href="#" class="block">
-                        <div class="relative rounded-lg overflow-hidden mb-3">
-                            <img
-                                src="https://images.unsplash.com/photo-1639322537228-f710d846310a?w=600&q=80"
-                                alt="GPU Accelerated AI"
-                                class="w-full h-44 object-cover group-hover:opacity-90 transition" />
-                        </div>
-                        <h3
-                            class="text-base font-bold text-gray-900 mb-1 line-clamp-2 group-hover:text-blue-600 transition">
-                            World Vocational College Skills Competition (Internasional)
-                        </h3>
-                        <p class="text-sm text-gray-600 mb-2">
-                            Potensial untuk artikel “Kesempatan Internasional bagi Siswa
-                            SMK Pustek” atau “Mengenal World Vocational College Skills”.
-                        </p>
-                    </a>
-                </div>
-
-                <!-- Course Card 5 (tambahan untuk scroll) -->
-                <div class="flex-none w-80 group">
-                    <a href="#" class="block">
-                        <div class="relative rounded-lg overflow-hidden mb-3">
-                            <img
-                                src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&q=80"
-                                alt="Machine Learning"
-                                class="w-full h-44 object-cover group-hover:opacity-90 transition" />
-                        </div>
-                        <h3
-                            class="text-base font-bold text-gray-900 mb-1 line-clamp-2 group-hover:text-blue-600 transition">
-                            Delegasi SMK Pustek Serpong Berhasil Masuk Final Olimpiade
-                            Matematika Kejuruan (OMK) 2025
-                        </h3>
-                        <p class="text-sm text-gray-600 mb-2">
-                            Dua siswa dari jurusan RPL dan Akuntansi berhasil menembus
-                            babak final Olimpiade Matematika Kejuruan (OMK) 2025 yang
-                            diselenggarakan oleh Universitas Pendidikan Indonesia.
-                        </p>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Navigation Button (Right) -->
-            <button
-                class="absolute right-0 top-1/3 -translate-y-1/2 bg-black text-white w-12 h-12 rounded-full shadow-lg hover:bg-gray-800 transition flex items-center justify-center">
-                <svg
-                    class="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7" />
-                </svg>
-            </button>
-        </div>
-
-        <!-- View All Link -->
-        <div class="mt-8">
-            <a
-                href="kegiatan/kegiatan.html"
-                class="inline-flex items-center text-purple-700 font-bold text-base hover:text-purple-800 transition">
-                Informasi Selanjutnya
-                <svg
-                    class="w-5 h-5 ml-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7" />
-                </svg>
-            </a>
-        </div>
-    </div>
-</section>
 @endsection
