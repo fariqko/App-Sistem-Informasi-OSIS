@@ -1,166 +1,235 @@
 
-      // Simple animation on scroll
-      document.addEventListener("DOMContentLoaded", function () {
-        const cards = document.querySelectorAll(".card-hover");
+function initHorizontalCarousel(options) {
+  const {
+    carouselId,
+    prevBtnId,
+    nextBtnId,
+    progressSelector,
+    cardWidth = 272,
+  } = options;
 
-        // Add animation class to cards when they come into view
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.style.animation = "slideIn 0.5s ease-out forwards";
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.1 }
-        );
+  const carousel = document.getElementById(carouselId);
+  if (!carousel) return;
 
-        cards.forEach((card) => {
-          observer.observe(card);
-        });
-      });
-      let currentSlide = 0;
-      const sliderTrack = document.getElementById("slider-track");
-      const totalSlides = 3;
+  const prevBtn = document.getElementById(prevBtnId);
+  const nextBtn = document.getElementById(nextBtnId);
+  const progressItems = document.querySelectorAll(progressSelector);
 
-      function updateSlide() {
-        sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+  let currentPosition = 0;
+  let cardsPerView = calculateCardsPerView();
+  let totalCards = carousel.children.length;
+  let maxPosition = Math.max(0, totalCards - cardsPerView);
+
+  function calculateCardsPerView() {
+    return Math.floor(carousel.parentElement.offsetWidth / cardWidth);
+  }
+
+  function updateProgress() {
+    const activeIndex = Math.floor(currentPosition / cardsPerView);
+    progressItems.forEach((item, index) => {
+      item.classList.toggle('bg-cyan-400', index === activeIndex);
+      item.classList.toggle('bg-gray-200', index !== activeIndex);
+    });
+  }
+
+  function moveCarousel() {
+    carousel.style.transform = `translateX(-${currentPosition * cardWidth}px)`;
+    updateProgress();
+  }
+
+  // Tombol Previous
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentPosition > 0) {
+        currentPosition = Math.max(0, currentPosition - cardsPerView);
+        moveCarousel();
       }
+    });
+  }
 
-      document.getElementById("next-btn").onclick = () => {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        updateSlide();
-      };
+  // Tombol Next
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (currentPosition < maxPosition) {
+        currentPosition = Math.min(maxPosition, currentPosition + cardsPerView);
+        moveCarousel();
+      }
+    });
+  }
 
-      document.getElementById("prev-btn").onclick = () => {
-        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-        updateSlide();
-      };
-      document.addEventListener("DOMContentLoaded", function () {
-        const carousel = document.getElementById("carousel");
-        const prevBtn = document.getElementById("prevBtn-struktur-inti");
-        const nextBtn = document.getElementById("nextBtn-struktur-inti");
-        const progressItems = document.querySelectorAll(".progress-item");
+  // Inisialisasi awal
+  moveCarousel();
 
-        let currentPosition = 0;
-        const cardWidth = 272; // w-64 (256px) + gap-4 (16px) = 272px
-        const cardsPerView = Math.floor(
-          carousel.parentElement.offsetWidth / cardWidth
-        );
-        const totalCards = carousel.children.length;
-        const maxPosition = Math.max(0, totalCards - cardsPerView);
+  // Responsif saat resize
+  window.addEventListener('resize', () => {
+    const newPerView = calculateCardsPerView();
+    if (newPerView !== cardsPerView) {
+      cardsPerView = newPerView;
+      maxPosition = Math.max(0, totalCards - cardsPerView);
+      currentPosition = 0;
+      carousel.style.transform = 'translateX(0)';
+      updateProgress();
+    }
+  });
+}
 
-        // Update progress bar
-        function updateProgress() {
-          const activeIndex = Math.floor(currentPosition / cardsPerView);
-          progressItems.forEach((item, index) => {
-            if (index === activeIndex) {
-              item.classList.add("bg-cyan-400");
-              item.classList.remove("bg-gray-200");
-            } else {
-              item.classList.remove("bg-cyan-400");
-              item.classList.add("bg-gray-200");
-            }
-          });
-        }
+// --------------------------------------------------
+// 2. Fungsi reusable untuk slider sederhana (percentage-based)
+// --------------------------------------------------
+function initSimpleSlider(options = {}) {
+  const {
+    trackId = 'slider-track',
+    prevBtnId = 'prev-btn',
+    nextBtnId = 'next-btn',
+    totalSlides = 3,
+  } = options;
 
-        // Navigate to previous set of cards
-        prevBtn.addEventListener("click", function () {
-          if (currentPosition > 0) {
-            currentPosition = Math.max(0, currentPosition - cardsPerView);
-            carousel.style.transform = `translateX(-${
-              currentPosition * cardWidth
-            }px)`;
-            updateProgress();
-          }
-        });
+  const track = document.getElementById(trackId);
+  if (!track) return;
 
-        // Navigate to next set of cards
-        nextBtn.addEventListener("click", function () {
-          if (currentPosition < maxPosition) {
-            currentPosition = Math.min(
-              maxPosition,
-              currentPosition + cardsPerView
-            );
-            carousel.style.transform = `translateX(-${
-              currentPosition * cardWidth
-            }px)`;
-            updateProgress();
-          }
-        });
+  let currentSlide = 0;
 
-        // Initialize progress bar
-        updateProgress();
+  function updateSlide() {
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+  }
 
-        // Handle window resize
-        window.addEventListener("resize", function () {
-          const newCardsPerView = Math.floor(
-            carousel.parentElement.offsetWidth / cardWidth
-          );
-          if (newCardsPerView !== cardsPerView) {
-            // Reset position on resize
-            currentPosition = 0;
-            carousel.style.transform = `translateX(0)`;
-            updateProgress();
-          }
-        });
-      });
-      // Navigation for Struktur Section
-document.addEventListener('DOMContentLoaded', function() {
+  const nextBtn = document.getElementById(nextBtnId);
+  const prevBtn = document.getElementById(prevBtnId);
+
+  if (nextBtn) {
+    nextBtn.onclick = () => {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlide();
+    };
+  }
+
+  if (prevBtn) {
+    prevBtn.onclick = () => {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateSlide();
+    };
+  }
+}
+
+// --------------------------------------------------
+// 3. Tab navigation dengan hash support
+// --------------------------------------------------
+function initStrukturTabNavigation() {
   const navItems = document.querySelectorAll('.struktur-nav-item');
   const contentSections = document.querySelectorAll('.struktur-content');
 
-  // Function to show specific content
+  if (!navItems.length || !contentSections.length) return;
+
   function showContent(targetId) {
-    // Hide all content sections
+    // Sembunyikan semua konten
     contentSections.forEach(section => {
       section.classList.add('hidden');
       section.classList.remove('active');
     });
 
-    // Remove active class from all nav items
+    // Reset style semua nav item
     navItems.forEach(item => {
       item.classList.remove('bg-cyan-50', 'text-cyan-600', 'font-medium');
       item.classList.add('text-gray-700', 'hover:bg-gray-50');
     });
 
-    // Show target content
+    // Tampilkan target
     const targetContent = document.getElementById(targetId);
     if (targetContent) {
       targetContent.classList.remove('hidden');
       targetContent.classList.add('active');
     }
 
-    // Activate corresponding nav item
-    const activeNavItem = document.querySelector(`[data-target="${targetId}"]`);
-    if (activeNavItem) {
-      activeNavItem.classList.add('bg-cyan-50', 'text-cyan-600', 'font-medium');
-      activeNavItem.classList.remove('text-gray-700', 'hover:bg-gray-50');
+    // Aktifkan nav item yang sesuai
+    const activeNav = document.querySelector(`[data-target="${targetId}"]`);
+    if (activeNav) {
+      activeNav.classList.add('bg-cyan-50', 'text-cyan-600', 'font-medium');
+      activeNav.classList.remove('text-gray-700', 'hover:bg-gray-50');
     }
   }
 
-  // Add click event listeners to nav items
+  // Klik pada nav item
   navItems.forEach(item => {
-    item.addEventListener('click', function(e) {
+    item.addEventListener('click', e => {
       e.preventDefault();
-      const targetId = this.getAttribute('data-target');
+      const targetId = item.getAttribute('data-target');
       showContent(targetId);
+      // Optional: update URL hash
+      history.replaceState(null, null, `#${targetId}`);
     });
   });
 
-  // Handle URL hash on page load
+  // Handle hash pada load & perubahan
   function handleHash() {
     const hash = window.location.hash.substring(1);
-    if (hash) {
-      const validTargets = ['struktur-inti', 'bidang-1', 'bidang-2', 'bidang-3', 'bidang-4', 'bidang-5', 'bidang-6', 'bidang-7', 'bidang-8'];
-      if (validTargets.includes(hash)) {
-        showContent(hash);
-      }
+    if (!hash) {
+      // default ke tab pertama jika tidak ada hash
+      const firstTarget = navItems[0]?.getAttribute('data-target');
+      if (firstTarget) showContent(firstTarget);
+      return;
+    }
+
+    const validTargets = Array.from(navItems).map(item => item.getAttribute('data-target'));
+    if (validTargets.includes(hash)) {
+      showContent(hash);
     }
   }
 
-  // Handle initial load and hash changes
   handleHash();
   window.addEventListener('hashchange', handleHash);
+}
+
+// --------------------------------------------------
+// 4. Animasi slide-in kartu saat masuk viewport
+// --------------------------------------------------
+function initScrollAnimation() {
+  const cards = document.querySelectorAll('.card-hover');
+  if (!cards.length) return;
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'slideIn 0.5s ease-out forwards';
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  cards.forEach(card => observer.observe(card));
+}
+
+// --------------------------------------------------
+// Inisialisasi semua fitur saat DOM siap
+// --------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+  // Inisialisasi animasi scroll (global untuk semua kartu)
+  initScrollAnimation();
+
+  // Inisialisasi slider sederhana (misal untuk 3 paslon utama)
+  initSimpleSlider();
+
+  // Inisialisasi carousel Struktur Inti
+  initHorizontalCarousel({
+    carouselId: 'carousel',
+    prevBtnId: 'prevBtn-struktur-inti',
+    nextBtnId: 'nextBtn-struktur-inti',
+    progressSelector: '.progress-item',
+  });
+
+  // Inisialisasi carousel Bidang 1 (dan bisa ditambah bidang lain)
+  initHorizontalCarousel({
+    carouselId: 'carousel-bidang-1',
+    prevBtnId: 'prevBtn-bidang-1',
+    nextBtnId: 'nextBtn-bidang-1',
+    progressSelector: '.progress-item-bidang-1',
+  });
+
+  // Tambahkan bidang lain di sini jika ada
+  // initHorizontalCarousel({ carouselId: 'carousel-bidang-2', ... });
+
+  // Inisialisasi tab navigation untuk bidang & struktur
+  initStrukturTabNavigation();
 });

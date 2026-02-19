@@ -2,70 +2,7 @@
 
 @section('content')  
     <!-- Hero Section Ekstrakurikuler -->
-<section class="relative bg-gradient-to-br from-[#151A59] to-[#4E8794] text-white py-20 overflow-hidden">
-    <div class="container mx-auto px-4 relative z-10">
-        <div class="flex flex-col md:flex-row items-center gap-12">
-            <!-- Left Content -->
-            <div class="md:w-1/2 space-y-8">
-                <!-- Main Heading -->
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
-                    EKSTRAKURIKULER <span class="text-yellow-400">SMK PUSTEK</span>
-                </h1>
 
-                    <!-- Subtitle -->
-                    <p class="text-xl md:text-2xl font-light text-gray-200">
-                        Wadah Pengembangan Bakat, Minat, dan Karakter Siswa
-                    </p>
-
-                    <!-- Divider -->
-                    <div class="w-20 h-1 bg-yellow-400 my-8"></div>
-
-                    <!-- Description -->
-                    <p class="text-lg text-gray-300 leading-relaxed mb-8">
-                        Ekstrakurikuler di SMK Pustek Serpong merupakan program non-akademik yang dirancang untuk mengembangkan potensi siswa di luar jam pelajaran. Melalui berbagai kegiatan ekstrakurikuler, siswa dapat mengeksplorasi minat, mengasah bakat, dan membangun karakter yang positif.
-                    </p>
-
-                    <!-- CTA Buttons -->
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#tujuan" class="bg-yellow-400 text-blue-900 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition duration-300">
-                            Tujuan & Manfaat
-                        </a>
-
-                    </div>
-                </div>
-
-                <!-- Right Image -->
-                <div class="md:w-1/2 flex justify-center relative">
-                    <!-- Decorative Elements -->
-                    <div class="absolute -top-6 -right-6 w-24 h-24 bg-yellow-400 rounded-full opacity-20 blur-2xl animate-pulse"></div>
-                    <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-indigo-400 rounded-full opacity-20 blur-2xl animate-pulse delay-500"></div>
-
-                    <!-- Main Image Container -->
-                    <div class="relative group">
-                        <!-- Card Background -->
-                        <div class="absolute inset-0 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-3xl transform rotate-6 group-hover:rotate-3 transition-transform duration-500 opacity-40 blur-sm"></div>
-
-                        <!-- Image Card -->
-                        <div class="relative bg-white/10 backdrop-blur-sm rounded-3xl p-3 shadow-2xl transform -rotate-2 group-hover:rotate-0 transition-all duration-500 border border-white/20">
-                            <div class="relative overflow-hidden rounded-2xl">
-                                <img src="../assets/sekolah-removebg-preview.png" alt="Kegiatan Ekstrakurikuler" class="rounded-2xl w-full h-96 object-cover transform group-hover:scale-110 transition-transform duration-700">
-
-                                <!-- Overlay Gradient -->
-                                <div class="absolute inset-0 bg-gradient-to-t from-blue-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bottom Wave -->
-        <div class="absolute -bottom-0.5 inset-x-0 z-50 border-0">
-            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white" fill-opacity="1" />
-            </svg>
-        </div>
-    </section>
 
     <!-- Daftar Ekstrakurikuler Section -->
     <section id="daftar-ekskul" class="py-16 bg-white">

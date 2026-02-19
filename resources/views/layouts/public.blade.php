@@ -23,7 +23,7 @@
     'resources/css/app.css',
     'resources/js/app.js',
     'resources/js/script.js',
-    'resources/js/carouselBidang.js',
+    'resources/js/pages/carouselBidang.js',
     ])
 </head>
 
